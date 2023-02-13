@@ -18,8 +18,10 @@
         "@inertiajs/vue3": "^1.0.0",
         "@vitejs/plugin-vue": "^4.0.0",
         "moment": "^2.29.4",
+        "moment-timezone": "^0.5.40",
         "vite-plugin-vuetify": "^1.0.2",
         "vue": "^3.2.47",
+        "vue-p5": "^0.8.4",
         "vuetify": "^3.1.3"
     }
 }

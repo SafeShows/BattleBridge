@@ -17,20 +17,12 @@ class InstallerMiddleware
      */
     public function handle(Request $request, Closure $next)
     {
-        // dd($request->requestUri->);
-        $appSettings = [];
-        $_appSettings =  AppSettings::all();
-
-        foreach($_appSettings as $setting) {
-            $appSettings[$setting->key] = $setting->value;
-        }
-        if ($appSettings['installed'] == '1') {
+        if (AppSettings::where('key', 'installed')->first()->value === '1') {
             return $next($request);
         }
         if (str_starts_with($request->requestUri, "/installer")) {
             return $next($request);
         }
-
         return redirect('/installer');
     }
 }
