@@ -19,11 +19,12 @@ class OrbatController extends Controller
         $platoons = QueryBuilder::for(Platoon::class)->with(['squads', 'members', 'squads.fireteams', 'company'])->get();
         $squads = QueryBuilder::for(Squad::class)->with(['fireteams', 'members', 'platoon', 'platoon.company'])->get();
         $fireteams = QueryBuilder::for(Fireteam::class)->with(['members', 'squad', 'squad.platoon', 'squad.platoon.company'])->get();
+
         return Inertia::render('community/orbat/index', [
             'companies' => $companies,
-            'platoons' => $platoons,
-            'squads' => $squads,
-            'fireteams' => $fireteams
+            'platoons'  => $platoons,
+            'squads'    => $squads,
+            'fireteams' => $fireteams,
         ]);
     }
 }

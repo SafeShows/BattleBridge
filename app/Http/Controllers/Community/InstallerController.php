@@ -5,9 +5,8 @@ namespace App\Http\Controllers\Community;
 use App\Http\Controllers\Controller;
 use App\Models\AppSettings;
 use Illuminate\Http\Request;
-use Inertia\Inertia;
 use Illuminate\Support\Facades\Crypt;
-
+use Inertia\Inertia;
 
 class InstallerController extends Controller
 {
@@ -20,15 +19,15 @@ class InstallerController extends Controller
     {
         $data = $request->all();
 
-        foreach($data as $key => $value) {
-            if ($key === "discordSecret" || $key === "discordBotToken" || $key === "teamspeakServerQueryPassword" ) {
+        foreach ($data as $key => $value) {
+            if ($key === 'discordSecret' || $key === 'discordBotToken' || $key === 'teamspeakServerQueryPassword') {
                 AppSettings::create([
-                    'key'=> $key,
+                    'key'  => $key,
                     'value'=> Crypt::encryptString($value),
                 ]);
             } else {
                 AppSettings::create([
-                    'key'=> $key,
+                    'key'  => $key,
                     'value'=> $value,
                 ]);
             }
