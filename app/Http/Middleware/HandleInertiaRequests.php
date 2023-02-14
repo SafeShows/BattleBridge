@@ -12,6 +12,7 @@ class HandleInertiaRequests extends Middleware
      * The root template that's loaded on the first page visit.
      *
      * @see https://inertiajs.com/server-side-setup#root-template
+     *
      * @var string
      */
     protected $rootView = 'app';
@@ -20,7 +21,9 @@ class HandleInertiaRequests extends Middleware
      * Determines the current asset version.
      *
      * @see https://inertiajs.com/asset-versioning
-     * @param  \Illuminate\Http\Request  $request
+     *
+     * @param \Illuminate\Http\Request $request
+     *
      * @return string|null
      */
     public function version(Request $request): ?string
@@ -32,16 +35,18 @@ class HandleInertiaRequests extends Middleware
      * Defines the props that are shared by default.
      *
      * @see https://inertiajs.com/shared-data
-     * @param  \Illuminate\Http\Request  $request
+     *
+     * @param \Illuminate\Http\Request $request
+     *
      * @return array
      */
     public function share(Request $request): array
     {
         $appSettings = [];
-        $_appSettings =  AppSettings::all();
+        $_appSettings = AppSettings::all();
 
-        foreach($_appSettings as $setting) {
-            if(
+        foreach ($_appSettings as $setting) {
+            if (
                 $setting->key === 'installed' ||
                 $setting->key === 'discordClientID' ||
                 $setting->key === 'discordSecret' ||
@@ -62,7 +67,7 @@ class HandleInertiaRequests extends Middleware
             $_roles = $user->roles()->getResults();
             $roles = [];
             foreach ($_roles as $role) {
-                $r = new class {
+                $r = new class() {
                     public string $name;
                     public array $permissions;
                 };
@@ -84,14 +89,14 @@ class HandleInertiaRequests extends Middleware
             unset($user->platoon_id);
             unset($user->squad_id);
             unset($user->fireteam_id);
-            // dd($roles);
+        // dd($roles);
         } else {
             $user = null;
         }
 
         return array_merge(parent::share($request), [
-            'User' => $user,
-            'AppSettings' => $appSettings
+            'User'        => $user,
+            'AppSettings' => $appSettings,
         ]);
     }
 }

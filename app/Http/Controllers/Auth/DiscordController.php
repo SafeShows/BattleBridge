@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 use App\Models\AppSettings;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
@@ -16,21 +15,23 @@ class DiscordController extends Controller
 
     public function __construct()
     {
-        $_appSettings =  AppSettings::all();
+        $_appSettings = AppSettings::all();
 
-        foreach($_appSettings as $setting) {
+        foreach ($_appSettings as $setting) {
             $this->appSettings[$setting->key] = $setting->value;
         }
     }
 
-    public function redirect() {
+    public function redirect()
+    {
         $config = [
-            'client_id'    => $this->appSettings['discordClientID'],
-            'client_secret' => Crypt::decryptString($this->appSettings['discordSecret']),
-            'redirect'     => url('/auth/discord/callback'),
-            'allow_gif_avatars' => false,
-            'avatar_default_extension' => 'png'
+            'client_id'                => $this->appSettings['discordClientID'],
+            'client_secret'            => Crypt::decryptString($this->appSettings['discordSecret']),
+            'redirect'                 => url('/auth/discord/callback'),
+            'allow_gif_avatars'        => false,
+            'avatar_default_extension' => 'png',
         ];
+
         return Socialite::buildProvider(\SocialiteProviders\Discord\Provider::class, $config)->scopes([
             'identify',
             'email',
@@ -38,17 +39,18 @@ class DiscordController extends Controller
         ])->redirect();
     }
 
-    public function login() {
+    public function login()
+    {
         $config = [
-            'client_id'    => $this->appSettings['discordClientID'],
-            'client_secret' => Crypt::decryptString($this->appSettings['discordSecret']),
-            'redirect'     => url('/auth/discord/callback'),
-            'allow_gif_avatars' => false,
-            'avatar_default_extension' => 'png'
+            'client_id'                => $this->appSettings['discordClientID'],
+            'client_secret'            => Crypt::decryptString($this->appSettings['discordSecret']),
+            'redirect'                 => url('/auth/discord/callback'),
+            'allow_gif_avatars'        => false,
+            'avatar_default_extension' => 'png',
         ];
         $data = Socialite::buildProvider(\SocialiteProviders\Discord\Provider::class, $config)->user();
 
-        if($user = User::where('discord_id', $data->id)->first()) {
+        if ($user = User::where('discord_id', $data->id)->first()) {
             Auth::login($user);
         } else {
             if (User::all()->count() == 0) {
@@ -70,7 +72,6 @@ class DiscordController extends Controller
             }
         }
 
-        return redirect("/");
-
+        return redirect('/');
     }
 }
