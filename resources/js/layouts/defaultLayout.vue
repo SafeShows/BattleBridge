@@ -43,9 +43,11 @@ onBeforeUnmount(() => {
                         <v-list density="compact" nav>
                             <v-list-item link prepend-icon="mdi-account-multiple" title="My Squad" />
                             <Link as="div" href="/orbat" >
-                                <v-list-item link prepend-icon="mdi-account-group" title="Community ORBAT" />
+                                <v-list-item link href="/orbat" prepend-icon="mdi-account-group" title="Community ORBAT" />
                             </Link>
-                            <v-list-item link prepend-icon="mdi-calendar-month" title="Community Calendar" />
+                            <Link as="div" href="/events">
+                                <v-list-item link href="/events" prepend-icon="mdi-calendar-month" title="Community Calendar" />
+                            </Link>
                             <v-list-item link prepend-icon="mdi-clipboard-text-outline" title="Community Inventory" />
                         </v-list>
                         <template v-slot:append>

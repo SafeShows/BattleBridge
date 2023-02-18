@@ -49,8 +49,4 @@ class User extends Authenticatable
         return $this->belongsTo(Squad::class);
     }
 
-    public function fireteam()
-    {
-        return $this->belongsTo(Fireteam::class);
-    }
 }

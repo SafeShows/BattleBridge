@@ -1,7 +1,6 @@
 <?php
 
 use App\Models\Orbat\Company;
-use App\Models\Orbat\Fireteam;
 use App\Models\Orbat\Platoon;
 use App\Models\Orbat\Squad;
 use Illuminate\Database\Migrations\Migration;
@@ -21,26 +20,20 @@ return new class() extends Migration {
                 ->nullable()
                 ->default(null)
                 ->constrained()
-                ->onUpdate('cascade')
-                ->onDelete('cascade');
+                ->onUpdate('set null')
+                ->onDelete('set null');
             $table->foreignIdFor(Platoon::class)
                 ->nullable()
                 ->default(null)
                 ->constrained()
-                ->onUpdate('cascade')
-                ->onDelete('cascade');
+                ->onUpdate('set null')
+                ->onDelete('set null');
             $table->foreignIdFor(Squad::class)
                 ->nullable()
                 ->default(null)
                 ->constrained()
-                ->onUpdate('cascade')
-                ->onDelete('cascade');
-            $table->foreignIdFor(Fireteam::class)
-                ->nullable()
-                ->default(null)
-                ->constrained()
-                ->onUpdate('cascade')
-                ->onDelete('cascade');
+                ->onUpdate('set null')
+                ->onDelete('set null');
         });
     }
 

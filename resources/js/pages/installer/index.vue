@@ -10,6 +10,7 @@ const form = useForm({
     communityTimezone: "UTC",
     communityName: "",
     communityTheme: "#ffffffff",
+    discordServerID: "",
     discordClientID: "",
     discordSecret: "",
     discordBotToken: "",
@@ -76,6 +77,10 @@ defineOptions({
                                 </v-window-item>
 
                                 <v-window-item value="DiscordSettings">
+                                    <br>
+                                    <v-text-field label="Discord Server ID" v-model="form.discordServerID" :rules="[
+                                        v => !!v || 'Field is required'
+                                    ]" />
                                     <br>
                                     <v-text-field label="Discord Client ID" v-model="form.discordClientID" :rules="[
                                         v => !!v || 'Field is required'

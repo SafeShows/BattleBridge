@@ -12,7 +12,12 @@ const selectedUnit = ref(null)
 
 <template>
     <div>
-        <Orbat :data="props.companies"/>
+        <Orbat 
+        :data="props.companies"
+        :companies="props.companies"
+        :platoons="props.platoons"
+        :squads="props.squads"
+        :fireteams="props.fireteams"/>
     </div>
     <!-- <div style="height: 100%;">
         <v-row height="100%">

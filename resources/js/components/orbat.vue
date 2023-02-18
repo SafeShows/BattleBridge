@@ -1,148 +1,366 @@
-<template>
-    <div id="orbat" ref="orbat"></div>
-</template>
-
 <script>
-import OrgChart from '@balkangraph/orgchart.js'
-import { usePage } from '@inertiajs/vue3';
 export default {
-    name: 'orbat',
-    props: [
-        "data"
-    ],
-    data() {
-        return {
-            page: null,
-            nodes: [],
-            chart: null,
-        }
-    },
-    methods: {
-        mytree: function (domEl, x) {
-            OrgChart.templates.ORBAT = Object.assign({}, OrgChart.templates.ana);
-            OrgChart.templates.ORBAT.node = '<rect width="{w}" height="{h}" fill="#0000" stroke="#aeaeae" stroke-width="1"></rect>';
-            OrgChart.templates.ORBAT.field_1 =
-                '<text class="field_0" style="font-size: 20px;" fill="#ffffff" x="125" y="50" text-anchor="middle">{val}</text>';
-            OrgChart.templates.ORBAT.field_2 =
-                '<text class="field_1" data-width="200" data-text-overflow="multiline-2-ellipsis" style="font-size: 14px;" fill="#ffffff" x="125" y="65" text-anchor="middle">{val}</text>';
-
-            OrgChart.templates.ORBAT_Company = Object.assign({}, OrgChart.templates.ORBAT)
-            OrgChart.templates.ORBAT_Company.field_0 =
-                '<text class="field_1" style="font-size: 14px;" fill="#ffffff" x="125" y="20" text-anchor="middle">Company</text>';
-            OrgChart.templates.ORBAT_Platoon = Object.assign({}, OrgChart.templates.ORBAT)
-            OrgChart.templates.ORBAT_Platoon.field_0 =
-                '<text class="field_1" style="font-size: 14px;" fill="#ffffff" x="125" y="20" text-anchor="middle">Platoon</text>';
-            OrgChart.templates.ORBAT_Squad = Object.assign({}, OrgChart.templates.ORBAT)
-            OrgChart.templates.ORBAT_Squad.field_0 =
-                '<text class="field_1" style="font-size: 14px;" fill="#ffffff" x="125" y="20" text-anchor="middle">Squad</text>';
-            OrgChart.templates.ORBAT_Fireteam = Object.assign({}, OrgChart.templates.ORBAT)
-            OrgChart.templates.ORBAT_Fireteam.field_0 =
-                '<text class="field_1" style="font-size: 14px;" fill="#ffffff" x="125" y="20" text-anchor="middle">Fireteam</text>';
-            OrgChart.templates.ORBAT_Member = Object.assign({}, OrgChart.templates.ORBAT)
-            OrgChart.templates.ORBAT_Member.field_0 =
-                '<text class="field_1" style="font-size: 14px;" fill="#ffffff" x="125" y="20" text-anchor="middle">Member</text>';
-            this.page = usePage();
-
-            let can_edit = false;
-            for (let i = 0; i < this.page.props.User.roles.length; i++) {
-                for (let e = 0; e < this.page.props.User.roles[i].permissions.length; e++) {
-                    if (this.page.props.User.roles[i].permissions[e] == "orbat.update") {
-                        can_edit=true;
-                        break;
+    name: "Orbat",
+    // props: [
+    //     "platoons",
+    //     "squads",
+    //     "fireteams",
+    // ],
+    data: () => ({
+        companies: [
+            {
+                "id": "f9d8e1ae-ae4c-11ed-a1c8-0492260e5902",
+                "name": "Join Defence Force",
+                "description": null,
+                "members": [
+                    {
+                        "uuid": "08a2fb98-ae51-11ed-a1c8-0492260e5902",
+                        "name": "Test user 1",
+                        "avatar": "https:\/\/cdn.discordapp.com\/avatars\/277494487213932555\/c3ef0be5b960f4a765fb29143583b868.jpg",
+                        "discord_avatar": "https:\/\/cdn.discordapp.com\/avatars\/277494487213932555\/c3ef0be5b960f4a765fb29143583b868.jpg",
+                        "discord_id": "123",
+                        "steam_avatar": null,
+                        "steam_id": null,
+                        "teamspeak_id": null,
+                        "created_at": "2023-02-17 01:25:39",
+                        "company_id": "f9d8e1ae-ae4c-11ed-a1c8-0492260e5902",
+                        "platoon_id": "19e9d55f-ae51-11ed-a1c8-0492260e5902",
+                        "squad_id": "32a62809-ae51-11ed-a1c8-0492260e5902"
+                    },
+                    {
+                        "uuid": "987c183a-ac23-4087-9dc1-a68016adf858",
+                        "name": "SafeShows",
+                        "avatar": "https:\/\/cdn.discordapp.com\/avatars\/277494487213932555\/c3ef0be5b960f4a765fb29143583b868.jpg",
+                        "discord_avatar": "https:\/\/cdn.discordapp.com\/avatars\/277494487213932555\/c3ef0be5b960f4a765fb29143583b868.jpg",
+                        "discord_id": "277494487213932555",
+                        "steam_avatar": null,
+                        "steam_id": null,
+                        "teamspeak_id": null,
+                        "created_at": "2023-02-17 01:01:25",
+                        "company_id": "f9d8e1ae-ae4c-11ed-a1c8-0492260e5902",
+                        "platoon_id": "0d643e07-ae4d-11ed-a1c8-0492260e5902",
+                        "squad_id": "1e4c8ae0-ae4d-11ed-a1c8-0492260e5902"
                     }
-                }
+                ],
+                "platoons": [
+                    {
+                        "id": "0d643e07-ae4d-11ed-a1c8-0492260e5902",
+                        "name": "Dagger Squadron HQ",
+                        "description": null,
+                        "company_id": "f9d8e1ae-ae4c-11ed-a1c8-0492260e5902",
+                        "members": [
+                            {
+                                "uuid": "987c183a-ac23-4087-9dc1-a68016adf858",
+                                "name": "SafeShows",
+                                "avatar": "https:\/\/cdn.discordapp.com\/avatars\/277494487213932555\/c3ef0be5b960f4a765fb29143583b868.jpg",
+                                "discord_avatar": "https:\/\/cdn.discordapp.com\/avatars\/277494487213932555\/c3ef0be5b960f4a765fb29143583b868.jpg",
+                                "discord_id": "277494487213932555",
+                                "steam_avatar": null,
+                                "steam_id": null,
+                                "teamspeak_id": null,
+                                "created_at": "2023-02-17 01:01:25",
+                                "company_id": "f9d8e1ae-ae4c-11ed-a1c8-0492260e5902",
+                                "platoon_id": "0d643e07-ae4d-11ed-a1c8-0492260e5902",
+                                "squad_id": "1e4c8ae0-ae4d-11ed-a1c8-0492260e5902"
+                            }
+                        ],
+                        "squads": [
+                            {
+                                "id": "1e4c8ae0-ae4d-11ed-a1c8-0492260e5902",
+                                "name": "1st Air Troop",
+                                "description": null,
+                                "platoon_id": "0d643e07-ae4d-11ed-a1c8-0492260e5902",
+                                "members": [
+                                    {
+                                        "uuid": "987c183a-ac23-4087-9dc1-a68016adf858",
+                                        "name": "SafeShows",
+                                        "avatar": "https:\/\/cdn.discordapp.com\/avatars\/277494487213932555\/c3ef0be5b960f4a765fb29143583b868.jpg",
+                                        "discord_avatar": "https:\/\/cdn.discordapp.com\/avatars\/277494487213932555\/c3ef0be5b960f4a765fb29143583b868.jpg",
+                                        "discord_id": "277494487213932555",
+                                        "steam_avatar": null,
+                                        "steam_id": null,
+                                        "teamspeak_id": null,
+                                        "created_at": "2023-02-17 01:01:25",
+                                        "company_id": "f9d8e1ae-ae4c-11ed-a1c8-0492260e5902",
+                                        "platoon_id": "0d643e07-ae4d-11ed-a1c8-0492260e5902",
+                                        "squad_id": "1e4c8ae0-ae4d-11ed-a1c8-0492260e5902"
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "id": "19e9d55f-ae51-11ed-a1c8-0492260e5902",
+                        "name": "Shield Squadron HQ",
+                        "description": null,
+                        "company_id": "f9d8e1ae-ae4c-11ed-a1c8-0492260e5902",
+                        "members": [
+                            {
+                                "uuid": "08a2fb98-ae51-11ed-a1c8-0492260e5902",
+                                "name": "Test user 1",
+                                "avatar": "https:\/\/cdn.discordapp.com\/avatars\/277494487213932555\/c3ef0be5b960f4a765fb29143583b868.jpg",
+                                "discord_avatar": "https:\/\/cdn.discordapp.com\/avatars\/277494487213932555\/c3ef0be5b960f4a765fb29143583b868.jpg",
+                                "discord_id": "123",
+                                "steam_avatar": null,
+                                "steam_id": null,
+                                "teamspeak_id": null,
+                                "created_at": "2023-02-17 01:25:39",
+                                "company_id": "f9d8e1ae-ae4c-11ed-a1c8-0492260e5902",
+                                "platoon_id": "19e9d55f-ae51-11ed-a1c8-0492260e5902",
+                                "squad_id": "32a62809-ae51-11ed-a1c8-0492260e5902"
+                            }
+                        ],
+                        "squads": [
+                            {
+                                "id": "32a62809-ae51-11ed-a1c8-0492260e5902",
+                                "name": "Mobility Troop",
+                                "description": null,
+                                "platoon_id": "19e9d55f-ae51-11ed-a1c8-0492260e5902",
+                                "members": [
+                                    {
+                                        "uuid": "08a2fb98-ae51-11ed-a1c8-0492260e5902",
+                                        "name": "Test user 1",
+                                        "avatar": "https:\/\/cdn.discordapp.com\/avatars\/277494487213932555\/c3ef0be5b960f4a765fb29143583b868.jpg",
+                                        "discord_avatar": "https:\/\/cdn.discordapp.com\/avatars\/277494487213932555\/c3ef0be5b960f4a765fb29143583b868.jpg",
+                                        "discord_id": "123",
+                                        "steam_avatar": null,
+                                        "steam_id": null,
+                                        "teamspeak_id": null,
+                                        "created_at": "2023-02-17 01:25:39",
+                                        "company_id": "f9d8e1ae-ae4c-11ed-a1c8-0492260e5902",
+                                        "platoon_id": "19e9d55f-ae51-11ed-a1c8-0492260e5902",
+                                        "squad_id": "32a62809-ae51-11ed-a1c8-0492260e5902"
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "id": "4be5377a-ae51-11ed-a1c8-0492260e5902",
+                        "name": "Test",
+                        "description": null,
+                        "company_id": "f9d8e1ae-ae4c-11ed-a1c8-0492260e5902",
+                        "members": [],
+                        "squads": []
+                    }
+                ]
             }
-
-            this.chart = new OrgChart(domEl, {
-                mode: 'dark',
-                template: 'ORBAT',
-                nodes: x,
-                enableSearch: false,
-                nodeMouseClick: OrgChart.action.none,
-                nodeBinding: {
-                    field_0: "id",
-                    field_1: "name",
-                    field_2: "description",
-                },
-                orientation: OrgChart.orientation.left_top,
-                tags: {
-                    "company": {
-                        mode: 'dark',
-                        template: 'ORBAT_Company',
-                    },
-                    "platoon": {
-                        mode: 'dark',
-                        template: 'ORBAT_Platoon',
-                    },
-                    "squad": {
-                        mode: 'dark',
-                        template: 'ORBAT_Squad',
-                    },
-                    "fireteam": {
-                        mode: 'dark',
-                        template: 'ORBAT_Fireteam',
-                    },
-                    "member": {
-                        mode: 'dark',
-                        template: 'ORBAT_Member',
-                    }
-                }
-            });
-        }
-    },
-    mounted() {
-        this.data.forEach(company => {
-            this.nodes.push({
-                id: company.id,
-                name: company.name,
-                description: company.description,
-                tags: ['company']
-            })
-            company.platoons.forEach(platoon => {
-                this.nodes.push({
-                    id: platoon.id,
-                    pid: platoon.company_id,
-                    description: platoon.description,
-                    name: platoon.name,
-                    tags: ['platoon']
-                })
-                platoon.squads.forEach(squad => {
-                    this.nodes.push({
-                        id: squad.id,
-                        pid: squad.platoon_id,
-                        description: squad.description,
-                        name: squad.name,
-                        tags: ['squad']
-                    })
-                    squad.fireteams.forEach(fireteam => {
-                        this.nodes.push({
-                            id: fireteam.id,
-                            pid: fireteam.squad_id,
-                            description: fireteam.description,
-                            name: fireteam.name,
-                            tags: ['fireteam']
-                        })
-                        fireteam.members.forEach(member => {
-                            this.nodes.push({
-                                id: member.uuid,
-                                pid: member.fireteam_id,
-                                name: member.name,
-                                tags: ['member']
-                            })
-                        })
-                    })
-                })
-            })
-        });
-        this.mytree(this.$refs.orbat, this.nodes)
-        this.chart.on('save', (sender, args, args1, args2) => {
-            console.log({sender, args, args1, args2})
-        })
-    }
+        ]
+    })
 }
 </script>
-<style>
-#orbat {
-    height: calc(100vh - 80px) !important;
+<template>
+    <div class="orbat-wrapper">
+        <div class="orbat" v-for="company in companies" :key="company.id">
+            <h1 class="level-1 rectangle">{{company.name}}</h1>
+            <ol class="level-2-wrapper">
+                <li v-for="platoon in company.platoons" :key="platoon.id">
+                    <h2 class="level-2 rectangle">{{platoon.name}}</h2>
+                    <ol class="level-3-wrapper" :style="`--count: ${platoon.squads.length}`">
+                        <li v-for="squad in platoon.squads">
+                            <h3 class="level-3 rectangle">{{squad.name}}</h3>
+                            <ol class="level-4-wrapper">
+                                <li v-for="member in squad.members">
+                                    <h4 class="level-4 rectangle">{{member.name}}</h4>
+                                </li>
+                            </ol>
+                        </li>
+                    </ol>
+                </li>
+            </ol>
+        </div>
+    </div>
+</template>
+<style scoped>
+ol {
+    list-style: none;
+}
+
+.orbat-wrapper {
+    display: flex;
+}
+
+.orbat {
+    padding: 0 10px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.rectangle {
+    position: relative;
+    padding: 20px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+}
+
+
+/* LEVEL-1 STYLES
+–––––––––––––––––––––––––––––––––––––––––––––––––– */
+.level-1 {
+    width: 50%;
+    margin: 0 auto 40px;
+    background: #222;
+}
+
+.level-1::before {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 2px;
+    height: 20px;
+    background: #fff;
+}
+
+
+/* LEVEL-2 STYLES
+–––––––––––––––––––––––––––––––––––––––––––––––––– */
+.level-2-wrapper {
+    position: relative;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+}
+
+.level-2-wrapper::before {
+    content: "";
+    position: absolute;
+    top: -20px;
+    left: 25%;
+    width: 50%;
+    height: 2px;
+    background: #fff;
+}
+
+.level-2-wrapper::after {
+    display: none;
+    content: "";
+    position: absolute;
+    left: -20px;
+    bottom: -20px;
+    width: calc(100% + 20px);
+    height: 2px;
+    background: #fff;
+}
+
+.level-2-wrapper li {
+    position: relative;
+}
+
+.level-2-wrapper>li::before {
+    content: "";
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 2px;
+    height: 20px;
+    background: #fff;
+}
+
+.level-2 {
+    width: 70%;
+    margin: 0 auto 40px;
+    background: #222;
+}
+
+.level-2::before {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 2px;
+    height: 20px;
+    background: #fff;
+}
+
+.level-2::after {
+    display: none;
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 0%;
+    transform: translate(-100%, -50%);
+    width: 20px;
+    height: 2px;
+    background: #fff;
+}
+
+
+/* LEVEL-3 STYLES
+–––––––––––––––––––––––––––––––––––––––––––––––––– */
+.level-3-wrapper {
+    position: relative;
+    display: flex;
+    grid-template-columns: repeat(2, 1fr);
+    grid-column-gap: 20px;
+    min-width: 90%;
+    margin: 0 auto;
+}
+
+.level-3-wrapper::before {
+    content: "";
+    position: absolute;
+    top: -20px;
+    transform: translateX(-50%);
+    left: 36.5%;
+    min-width: calc(26.5% * var(--count));
+    height: 2px;
+    background: #fff;
+}
+
+.level-3-wrapper>li::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translate(-50%, -100%);
+    width: 2px;
+    height: 20px;
+    background: #fff;
+}
+
+.level-3 {
+    margin-bottom: 20px;
+    background: #222;
+}
+
+
+/* LEVEL-4 STYLES
+–––––––––––––––––––––––––––––––––––––––––––––––––– */
+.level-4-wrapper {
+    position: relative;
+    width: 80%;
+    margin-left: auto;
+}
+
+.level-4-wrapper::before {
+    content: "";
+    position: absolute;
+    top: -20px;
+    left: -20px;
+    width: 2px;
+    height: calc(100% - 10px);
+    background: #fff;
+}
+
+.level-4-wrapper li+li {
+    margin-top: 20px;
+}
+
+.level-4 {
+    font-weight: normal;
+    background: #222;
+}
+
+.level-4::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 0%;
+    transform: translate(-100%, -50%);
+    width: 20px;
+    height: 2px;
+    background: #fff;
 }
 </style>

@@ -83,12 +83,10 @@ class HandleInertiaRequests extends Middleware
             $user->platoon = $user->platoon()->first();
             $user->company = $user->company()->first();
             $user->squad = $user->squad()->first();
-            $user->fireteam = $user->fireteam()->first();
             unset($user->teamspeak_key);
             unset($user->company_id);
             unset($user->platoon_id);
             unset($user->squad_id);
-            unset($user->fireteam_id);
         // dd($roles);
         } else {
             $user = null;

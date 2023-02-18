@@ -1,5 +1,9 @@
+<script setup>
+import Calendar from '../../../components/calendar.vue';
+</script>
+
 <template>
     <div>
-        events index
+        <Calendar />
     </div>
 </template>

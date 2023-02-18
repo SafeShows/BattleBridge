@@ -18,12 +18,7 @@ class Squad extends Model
 
     public $incrementing = false;
     public $timestamps = false;
-
-    public function fireteams()
-    {
-        return $this->hasMany(Fireteam::class);
-    }
-
+    
     public function platoon()
     {
         return $this->belongsTo(Platoon::class);

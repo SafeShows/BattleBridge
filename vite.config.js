@@ -4,6 +4,8 @@ import vue from '@vitejs/plugin-vue'
 import vuetify from 'vite-plugin-vuetify'
 import VueMacros from 'unplugin-vue-macros/vite'
 
+const _vue = vue()
+
 export default defineConfig({
     plugins: [
         laravel({
@@ -12,7 +14,7 @@ export default defineConfig({
         }),
         VueMacros({
             plugins: {
-                vue: vue(),
+                vue: _vue,
             },
         }),
         vuetify(),

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Auth\DiscordController;
+use App\Http\Controllers\Community\EventController;
 use App\Http\Controllers\Community\InstallerController;
 use App\Http\Controllers\Community\OrbatController;
 use App\Http\Controllers\Public\Controller as PublicController;
@@ -29,6 +30,10 @@ Route::middleware(['installer'])->group(function () {
     });
 
     Route::controller(OrbatController::class)->prefix('/orbat')->group(function () {
+        Route::get('/', 'index');
+    });
+
+    Route::controller(EventController::class)->prefix('/events')->group(function () {
         Route::get('/', 'index');
     });
 

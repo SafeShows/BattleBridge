@@ -21,22 +21,25 @@ class InstallerController extends Controller
 
         foreach ($data as $key => $value) {
             if ($key === 'discordSecret' || $key === 'discordBotToken' || $key === 'teamspeakServerQueryPassword') {
-                AppSettings::create([
+                $setting = AppSettings::firstOrCreate([
                     'key'  => $key,
-                    'value'=> Crypt::encryptString($value),
                 ]);
+                $setting->value = Crypt::encryptString($value);
+                $setting->save();
             } else {
-                AppSettings::create([
+                $setting = AppSettings::firstOrCreate([
                     'key'  => $key,
-                    'value'=> $value,
                 ]);
+                $setting->value = $value;
+                $setting->save();
             }
         }
 
         $installed = AppSettings::where('key', 'installed')->first();
         $installed->value = '1';
         $installed->save();
-        dd(AppSettings::all());
+        // dd(AppSettings::all());
+        return redirect('/');
         // return Inertia::render('installer/index');
     }
 }
